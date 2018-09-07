@@ -18,6 +18,18 @@ io.on('connection',(socket) =>{
     //     to: "tri@abc.local",
     //     text: "Okie, what do you want now "
     // });
+    //Admin sent message to everyone
+    socket.emit('newMessage',{
+        from: 'Admin',
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime(),
+    });
+    //admin sent message if peopeo joined
+    socket.broadcast.emit('newMessage',{
+        from: 'Admin',
+        text:'New user joined',
+        createdAt: new Date().getTime()
+    });
     //nhan thong tin tu client
     socket.on('createmessage', (message) =>{
         console.log('Create message',message);
