@@ -29,7 +29,7 @@ io.on('connection',(socket) =>{
     //     createdAt: new Date().getTime()
     // });
     //nhan thong tin tu client
-    socket.on('createmessage', (message) =>{
+    socket.on('createmessage', (message, callback) =>{
         console.log('Create message',message);
         io.emit('newMessage', generateMessage(message.from, message.text));
         // io.emit('newMessage', {
@@ -37,6 +37,7 @@ io.on('connection',(socket) =>{
         //     text: message.text,
         //     createdAt: new Date().getTime()
         // }); 
+        callback('This is message from server');
     } );
 });
 server.listen(port, () =>{
