@@ -32,13 +32,11 @@ io.on('connection',(socket) =>{
     socket.on('createmessage', (message, callback) =>{
         console.log('Create message',message);
         io.emit('newMessage', generateMessage(message.from, message.text));
-        // io.emit('newMessage', {
-        //     from: message.from,
-        //     text: message.text,
-        //     createdAt: new Date().getTime()
-        // }); 
         callback('This is message from server');
     } );
+    socket.on('createLocationMessage',(coords) =>{
+        io.emit('newMessage', generateMessage('Admin',`${coords.latitude}, ${coords.longitude}`));
+    });
 });
 server.listen(port, () =>{
     console.log(`Server is up with ${port}`);
