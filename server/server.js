@@ -4,7 +4,7 @@ const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 const http = require('http');
 const socketIO = require('socket.io');
-const {generateMessage} = require('./utils/message');
+const {generateMessage,generateLocationMessage} = require('./utils/message');
 var app = express();
 app.use(express.static(publicPath));
 var server = http.createServer(app);
@@ -35,7 +35,7 @@ io.on('connection',(socket) =>{
         callback('This is message from server');
     } );
     socket.on('createLocationMessage',(coords) =>{
-        io.emit('newMessage', generateMessage('Admin',`${coords.latitude}, ${coords.longitude}`));
+        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
     });
 });
 server.listen(port, () =>{
